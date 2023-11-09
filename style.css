@@ -43,3 +43,15 @@
         width: 100%;
     }
 }
+
+body {
+    background-color: #1f2937;
+}
+
+h1 {
+    color: #3882F6;
+}
+
+p {
+    color: #f7f7f7;
+}
