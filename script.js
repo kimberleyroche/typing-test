@@ -75,3 +75,18 @@ function handleKey(key) {
         handleEnd();
     }
 }
+
+//calculates the results, modifies the HTML, and changes the display properties that hide the results
+function handleEnd() {
+    let wpm = Math.floor(textArr.length / 5 / (currentTime / 60));
+    let accuracy = Math.floor(
+        ((textArr.length - errors.length) / textArr.length) * 100,
+    );
+    let multiples = Math.floor(currentTime / 60);
+    let seconds = currentTime - multiples * 60;
+    wpmText.innerHTML = `${wpm} wpm`;
+    accuracyText.innerHTML = `${accuracy}%`;
+    timeText.innerHTML = `${multiples} m ${seconds} s`;
+    main.style.display = 'none';
+    resultsContainer.style.display = 'block';
+}
