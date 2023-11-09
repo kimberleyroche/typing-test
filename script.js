@@ -30,3 +30,48 @@ let currentPos = 0;
 let backspaceNeeded = false;
 let currentTime = 0;
 let repeat;
+
+document.addEventListener('keydown', event => {
+    if (event.key === ' ') {
+        event.preventDefault();
+    }
+    if (firstTime) {
+        firstTime = false;
+        repeat = setInterval(() => currentTime++, 1000);
+    }
+    if (event.location === 0 && !invalidKeys.includes(event.key)) {
+        handleKey(event.key);
+    }
+});
+
+//changes the color of the key, changes the position of the key in the array, and forces backspaces
+function handleKey(key) {
+    let span = document.getElementById(`span${currentPos}`).style;
+    if (!backspaceNeeded) {
+        if (key === textArr[currentPos]) {
+            span.color = 'green';
+            currentPos++;
+        } else {
+            if (textArr[currentPos] === ' ') {
+                span.backgroundColor = 'red';
+            } else {
+                span.color = 'red';
+            }
+            backspaceNeeded = true;
+            errors.push(textArr[currentPos]);
+        }
+    } else {
+        if (event.key === 'Backspace') {
+            if (textArr[currentPos] === ' ') {
+                span.backgroundColor = 'transparent';
+            } else {
+                span.color = 'black';
+            }
+            backspaceNeeded = false;
+        }
+    }
+    if (currentPos === textArr.length) {
+        clearInterval(repeat);
+        handleEnd();
+    }
+}
